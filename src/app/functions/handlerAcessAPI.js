@@ -1,29 +1,27 @@
 'use server'
 
-const users = [
-    {
-        name: "",
-        email: "", 
-        password: "",  
-        token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
-    }
-]
+const url = "https://ptac-back-end-vercel.vercel.app/"
 
-const getUserAuthenticated = (user) => {
-    let userAuth = {};
-
-    users.map((user_login) => {
-       if(user_login.email == user.email && user_login.password == user.password){
-            userAuth =  user_login;
-
-       }
-    })
-
-    return userAuth;
+const getUserAuthenticated = async (user) => {
+    const responseOfApi = await fetch(`${url}/user/authenticated`,
+        {
+            method: "POST",
+            headers: {"content-type":"aplication/json"},
+            body: JSON.stringify(user)
+        }
+    );
+    let userAutenthicated = await responseOfApi.json();
+    return userAutenthicated;
+    
 }
 
-const getUsers = () =>{
-    return  users;
+const getUsers = async () =>{
+    const req = await  fetch(`${url}/users`,{
+        cache: "no-cache"
+    });
+    
+    const users = await req.json();
+    return users 
 }
 
 export { getUsers, getUserAuthenticated };

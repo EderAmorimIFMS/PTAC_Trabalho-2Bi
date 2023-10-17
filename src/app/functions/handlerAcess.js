@@ -4,10 +4,9 @@ import { getUserAuthenticated } from "./handlerAcessAPI";
 import { useState } from "react"
 
 const handlerAcessUser = async (user) => {
-    const [nomeAutenticado, setNomeAutenticado] = []
-
+    const [nomeAutenticado, setNomeAutenticado] = useState()
     const userAuth = await getUserAuthenticated(user);
-    
+
     const isTokenValidate = validateToken(userAuth.token);
 
     if (isTokenValidate) {
