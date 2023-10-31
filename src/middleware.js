@@ -7,8 +7,8 @@ export const middleware = (request) => {
     const token = request.cookies.get('token')?.value;
     const urlLogin = new URL('/', request.url);
     const urlDashboard = new URL('/pages/dashboard', request.url);
-    const urlAlterar = new URL('/pages/alterar', request.url);
-    const urlRegistrar = new URL('/pages/registrar', request.url);
+    /*const urlAlterar = new URL('/pages/alterar', request.url);
+    const urlRegistrar = new URL('/pages/registrar', request.url);*/
     const isTokenValidated = validateToken(token);
 
     if (!isTokenValidated || !token) {
@@ -31,8 +31,6 @@ export const middleware = (request) => {
     }
     
     
-
-
     NextResponse.next();
 };
 export const config = {

@@ -1,10 +1,21 @@
-import { decode } from "jsonwebtoken";
+import { jwtVerify } from "jose"
 
-const validateToken = (token)=>{
-    const isTokenValidate = decode(token);
-    if(isTokenValidate){
-        return token= true
+const validateToken = async (token) =>{
+    const secret =  ""
+
+    try{
+        const isTokenValidated =  await jwtVerify(token,
+            new TextEncoder().encode(secret)
+        )
+
+        if(isTokenValidated){
+                return true
+        } 
+
+    }catch{
+        return token=false;
+
     }
-    return token=false;
-}   
-export {validateToken};
+}
+    
+export { validateToken };
