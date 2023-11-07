@@ -1,60 +1,70 @@
 'use client'
 import { useState } from "react";
-import handlerAcessUser from "./functions/handlerAcess"
+//import handlerAcessUser from "./functions/handlerAcess"
+import { postUser } from "@app/functions/handlerAcessAPI"
 import { useRouter } from "next/navigation";
 import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
 
 export default function Registrar() {
-  const [busca_nome, setBusca_nome] = ''
-  const [usuario, setUsuario] = useState({
+  const [user, setUser] = useState({
     nome: '',
     email: '',
     password: '',
   });
 
-  const btnRegistrar = async (e) => {
-    e.preventDefault();
-    try {
-      
+const { push } = useRouter()
 
-    } catch {
-        toast.error("Erro na aplicação");
-    }
+const handlerSubimit = async(event) =>{
+  event.preventDefault();
+
+  try{
+    await postUser(user);
+    await new Promisse((resolve) => {
+      toast.success("Usuário cadastrado com sucesso!");
+      setTimeout(resolve, 5000 );
+
+    })
+    return push("/pages/dashboard");
+
+  } catch{
+    return toast.error("Erro");
+
   }
-  
-  return (
-    <div>
-      <div class="container">
-        <h1>Alterar</h1>
-
-        <div>
-             <form onSubmit={btnRegistrar}>
-                <input 
-                type="text" 
-                placeholder="ESCREVA O NOME DO USUARIO A SE REGISTRAR" 
-                class="input_text"
-                onChange={(e) => { setUsuario({ ...usuario, nome: e.target.value }) }}>
-                <input 
-                type="email" 
-                placeholder="ESCREVA O EMAIL DO USUARIO A SE REGISTRAR" 
-                class="input_text"
-                onChange={(e) => { setUsuario({ ...usuario, email: e.target.value }) }}>
-                <input 
-                type="password" 
-                placeholder="ESCREVA A SENHA DO USUARIO A SE REGISTRAR" 
-                class="input_text"
-                onChange={(e) => { setUsuario({ ...usuario, password: e.target.value }) }}>
-                
-                <div class="botoes">
-                     <button>ALTERAR</button>
-                </div>
-            </form>
-            
-        </div>
-
-      <ToastContainer />
-    </div>
-  )
 }
+
+return (
+  <div class="container">
+    <h1>REGISTRAR</h1>
+
+    <div>
+      <form onSubmit={handlerSubimit}>
+        <input 
+          type="text" 
+          placeholder="ESCREVA O NOME DO USUARIO A SE REGISTRAR" 
+          class="input_text"
+          onChange={(event) => { setUsuario({ ...usuario, nome: event.target.value }) }}
+        />
+        <input 
+          type="email" 
+          placeholder="ESCREVA O EMAIL DO USUARIO A SE REGISTRAR" 
+          class="input_text"
+          onChange={(event) => { setUsuario({ ...usuario, email: event.target.value }) }}
+        />
+        <input 
+          type="password" 
+          placeholder="ESCREVA A SENHA DO USUARIO A SE REGISTRAR" 
+          class="input_text"
+          onChange={(event) => { setUsuario({ ...usuario, password: event.target.value }) }}
+        />
+                
+        <div class="botoes">
+          <button>ALTERAR</button>
+        </div>
+      </form>
+    </div>
+
+    <ToastContainer />
+  </div>
+)}

@@ -16,12 +16,33 @@ const getUserAuthenticated = async (user) => {
 }
 
 const getUsers = async () =>{
-    const req = await  fetch(`${url}/users`,{
-        cache: "no-cache"
-    });
-    
-    const users = await req.json();
-    return users 
+    try{
+        const responseOfApi = await fetch(`${url}/users`, {
+            next:{revalidate: 10}
+        })
+        let userAutenthicated = await responseOfApi.json();
+        return userAutenthicated
+     
+    }catch{
+        return null
+
+    }
 }
 
-export { getUsers, getUserAuthenticated };
+
+const postUser = async (user) => {
+    try {
+        const responseOfApi = await fetch(`${url}/user`, {
+        method: "POST",
+        headers: {"content-type":"aplication/json"},
+        body: JSON.stringify(user)
+    });
+
+    const userSave = await responseOfApi.json();
+    return userSave
+
+    } catch {
+        return null
+    }
+  }
+export { getUsers, getUserAuthenticated, postUser };

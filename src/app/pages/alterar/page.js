@@ -6,8 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 export default function Alterar() {
-  const [busca_nome, setBusca_nome] = ''
-  const [usuario, setUsuario] = useState({
+const [usuario, setUsuario] = useState({
     nome: '',
     email: '',
     password: '',
@@ -38,51 +37,53 @@ const btnBuscar = async (e) => {
     }
   }
   
-  return (
+return (
+  <div class="container">
+    <h1>Alterar</h1>
+        
     <div>
-      <div class="container">
-        <h1>Alterar</h1>
-        <div class="form">
-            <form onSubmit={btnBuscar}>
-                <input
-                type="text"
-                name="busca_nome"
-                placeholder="ESCREVA O NOME DO USUARIO QUE DESEJA ALTERAR" 
-                class="input_text"
-                onChange={(e) => { setBuscanome(e.target.value)}}>
+      <form onSubmit={btnBuscar}>
+        <input
+          type="text"
+          name="busca_nome"
+          placeholder="ESCREVA O NOME DO USUARIO QUE DESEJA ALTERAR" 
+          class="input_text"
+          onChange={(e) => { setBuscanome(e.target.value)}}
+        />
                 
-                <div class="botoes">
-                     <button>BUSCAR</button>
-                </div>
-            </form>
+        <div class="botoes">
+          <button>BUSCAR</button>
         </div>
-
-        <div>
-             <form onSubmit={btnAlterar}>
-                <input 
-                type="text" 
-                placeholder="ESCREVA O NOME DO USUARIO A SE ALTERAR" 
-                class="input_text"
-                onChange={(e) => { setUsuario({ ...usuario, nome: e.target.value }) }}>
-                <input 
-                type="email" 
-                placeholder="ESCREVA O EMAIL DO USUARIO A SE ALTERAR" 
-                class="input_text"
-                onChange={(e) => { setUsuario({ ...usuario, email: e.target.value }) }}>
-                <input 
-                type="password" 
-                placeholder="ESCREVA A SENHA DO USUARIO A SE ALTERAR" 
-                class="input_text"
-                onChange={(e) => { setUsuario({ ...usuario, password: e.target.value }) }}>
-                
-                <div class="botoes">
-                     <button>ALTERAR</button>
-                </div>
-            </form>
-            
-        </div>
-
-      <ToastContainer />
+      </form>
     </div>
-  )
-}
+
+    <div>
+      <form onSubmit={btnAlterar}>
+        <input 
+          type="text" 
+          placeholder="ESCREVA O NOME DO USUARIO A SE ALTERAR" 
+          class="input_text"
+          onChange={(e) => { setUsuario({ ...usuario, nome: e.target.value }) }}
+        />
+        <input 
+          type="email" 
+          placeholder="ESCREVA O EMAIL DO USUARIO A SE ALTERAR" 
+          class="input_text"
+          onChange={(e) => { setUsuario({ ...usuario, email: e.target.value }) }}
+        />
+        <input 
+          type="password" 
+          placeholder="ESCREVA A SENHA DO USUARIO A SE ALTERAR" 
+          class="input_text"
+          onChange={(e) => { setUsuario({ ...usuario, password: e.target.value }) }}
+        />
+                
+        <div class="botoes">
+          <button>ALTERAR</button>
+        </div>
+      </form>
+    </div>
+
+    <ToastContainer />
+  </div>
+)}
