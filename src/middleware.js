@@ -16,7 +16,6 @@ export const middleware = (request) => {
             return NextResponse.redirect(urlLogin);
         }
     } 
-   
    //questão... 
     if (!isTokenValidated || !token) {
         if (request.nextUrl.pathname === '/pages/alterar' || request.nextUrl.pathname === '/pages/registrar' ) {
@@ -33,6 +32,7 @@ export const middleware = (request) => {
     
     NextResponse.next();
 };
+
 export const config = {
     matcher: ['/', '/pages/dashboard']
 };

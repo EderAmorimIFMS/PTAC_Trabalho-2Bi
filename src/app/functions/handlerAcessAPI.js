@@ -22,13 +22,10 @@ const getUsers = async () =>{
         })
         let userAutenthicated = await responseOfApi.json();
         return userAutenthicated
-     
     }catch{
         return null
-
     }
 }
-
 
 const postUser = async (user) => {
     try {
@@ -37,12 +34,11 @@ const postUser = async (user) => {
         headers: {"content-type":"aplication/json"},
         body: JSON.stringify(user)
     });
-
     const userSave = await responseOfApi.json();
     return userSave
-
     } catch {
         return null
     }
-  }
+}
+
 export { getUsers, getUserAuthenticated, postUser };
