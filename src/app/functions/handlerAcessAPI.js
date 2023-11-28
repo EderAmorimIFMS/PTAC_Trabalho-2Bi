@@ -3,25 +3,24 @@
 const url = "https://ptac-back-end-vercel.vercel.app/"
 
 const getUserAuthenticated = async (user) => {
-    const responseOfApi = await fetch(`${url}/user/authenticated`,
-        {
+    const responseOfApi = await fetch(`${url}/user/authenticated`, {
             method: "POST",
             headers: {"content-type":"aplication/json"},
             body: JSON.stringify(user)
         }
     );
-    let userAutenthicated = await responseOfApi.json();
-    return userAutenthicated;
+    let userAuth = await responseOfApi.json();
+    return userAuth;
     
 }
 
 const getUsers = async () =>{
     try{
         const responseOfApi = await fetch(`${url}/users`, {
-            next:{revalidate: 10}
-        })
-        let userAutenthicated = await responseOfApi.json();
-        return userAutenthicated
+            cache: "no-cache"
+        });
+        let users = await responseOfApi.json();
+        return users
     }catch{
         return null
     }
@@ -30,15 +29,30 @@ const getUsers = async () =>{
 const postUser = async (user) => {
     try {
         const responseOfApi = await fetch(`${url}/user`, {
-        method: "POST",
-        headers: {"content-type":"aplication/json"},
-        body: JSON.stringify(user)
-    });
-    const userSave = await responseOfApi.json();
-    return userSave
+            method: "POST",
+            headers: {"content-type":"aplication/json"},
+            body: JSON.stringify(user)
+         });
+        const userCreated = await responseOfApi.json();
+        return userCreated
     } catch {
         return null
     }
 }
 
-export { getUsers, getUserAuthenticated, postUser };
+const putUser = async (user, id) =>{
+    try{
+        const responseOfApi = await fetch(`${url}/user/${id}`, {
+            method: 'PUT',
+            headers: {"content-type":"aplication/json"},
+            body: JSON.stringify(user)
+        });
+        const userUpdate = await responseOfApi.json()
+        return userUpdate
+    }
+    catch{
+        return null
+    }
+}
+
+export { getUsers, getUserAuthenticated, postUser, putUser };

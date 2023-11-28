@@ -1,4 +1,5 @@
 'use client'
+
 import { useState } from "react";
 import handlerAcessUser from "./functions/handlerAcess"
 import { useRouter } from "next/navigation";
@@ -13,17 +14,16 @@ export default function Login() {
   });
   const { push, refresh } = useRouter();
 
-  const handlerLogin = async (e) => {
-    e.preventDefault();
+  const handlerLogin = async (event) => {
+    event.preventDefault();
     try {
       const userAuth = await handlerAcessUser(user);
       if(userAuth.token == undefined){
         toast.error("Erro no email ou senha!");
       }
       push('/pages/dashboard');
-
     } catch {
-        toast.error("Erro na aplicação");
+      toast.error("Erro na aplicação");
     }
   }
   return (
@@ -33,12 +33,12 @@ export default function Login() {
         <input
           placeholder='E-mail'
           type="email"
-          onChange={(e) => { setUser({ ...user, email: e.target.value }) }}>
+          onChange={(event) => { setUser({ ...user, email: event.target.value }) }}>
         </input>
         <input
           placeholder='Senha'
           type='password'
-          onChange={(e) => { setUser({ ...user, password: e.target.value }) }}>
+          onChange={(event) => { setUser({ ...user, password: event.target.value }) }}>
         </input>
         <button>Entrar</button>
       </form>
